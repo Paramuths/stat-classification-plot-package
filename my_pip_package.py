@@ -1,4 +1,4 @@
-__version__ = 'dev'
+__version__ = 0.0
 
 
 def hello_world():
