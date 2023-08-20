@@ -158,3 +158,7 @@ def plot_prf(true, prob, data_labels, show_labels, positive_label):
     plt.grid(True)
     
     return plt
+
+plot_types = {"roc": (plot_roc, "roc_curve.png"),
+              "pr": (plot_pr, "pr_curve.png"),
+              "prf": (plot_prf, "precision_recall_f1.png")}
