@@ -10,18 +10,20 @@ pred: a list of predicted labels, corresponding to true
 data_labels: a list of data that the labels are stored in 
 show_labels: a list of string to show in the plot, corresponding to data_labels
 path: path to destination folder
+file_name: the name of the file to be saved
 
 ex. true = [0, 1, 2, 1]
     pred = [0, 2, 2, 1]
     data_labels = [0, 1, 2]
     show_labels = ['very good', 'good', 'bad']
     path = "./stat_result"
+    file_name = "confusion_matrix.png"
 """
-def save_confusion_matrix(true, pred, data_labels, show_labels, path):
+def save_confusion_matrix(true, pred, data_labels, show_labels, path="./", file_name='confusion_matrix.png'):
     plt = plot_confusion_matrix(true, pred, data_labels, show_labels)
     # Save the plot
     plt.tight_layout() 
-    plt.savefig(os.path.join(path, 'confusion_matrix.png'))
+    plt.savefig(os.path.join(path, file_name))
     plt.close()
 
 """
