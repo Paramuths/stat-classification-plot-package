@@ -40,4 +40,9 @@ setup(
     extras_require={
         'dev': extra_dev,
     },
+
+    classifiers=[
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 3',
+    ],
 )
