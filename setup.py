@@ -1,31 +1,26 @@
 from setuptools import setup, find_packages
 
-from my_pip_package import __version__
+from stat_result import __version__
 
-extra_math = [
-    'returns-decorator',
-]
-
-extra_bin = [
-    *extra_math,
+dependency = [
+    'numpy>=1.22.4',
+    'matplotlib>=3.5.3',
+    'sklearn>=0.0',
+    'einops>=0.6.1'
 ]
 
 extra_test = [
-    *extra_math,
+    *dependency,
     'pytest>=4',
     'pytest-cov>=2',
 ]
+
 extra_dev = [
     *extra_test,
 ]
 
-extra_ci = [
-    *extra_test,
-    'python-coveralls',
-]
-
 setup(
-    name='my_pip_package',
+    name='stat_result',
     version=__version__,
 
     url='https://github.com/Paramuths/plot_result_package',
@@ -36,25 +31,13 @@ setup(
 
     # dependency installed in general
     install_requires=[
+        *dependency
     ],
 
     # dependency installed with specific keywordd
     extras_require={
-        'math': extra_math,
-
-        'bin': extra_bin,
-
         'test': extra_test,
-
         'dev': extra_dev,
-
-        'ci': extra_ci,
-    },
-
-    entry_points={
-        'console_scripts': [
-            'add=my_pip_package.math:cmd_add',
-        ],
     },
     
 )
