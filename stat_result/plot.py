@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, roc_curve, auc
+from sklearn.metrics import confusion_matrix, roc_curve, auc, precision_recall_curve, precision_score, recall_score, f1_score
 from einops import reduce
 
 """
@@ -101,6 +101,61 @@ def plot_roc(true, prob, data_labels, show_labels, positive_label):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic')
     plt.legend(loc="lower right")
+    
+    return plt
+
+"""
+helper function for plotting PR curve
+"""
+def plot_pr(true, prob, data_labels, show_labels, positive_label):
+    true_result, prob_result, label = reduce_to_two_classes(true, prob, data_labels, show_labels, positive_label)
+    # Compute precision and recall values for class 1
+    precision, recall, _ = precision_recall_curve(true_result, prob_result, pos_label=1)
+
+    # Plot the PR Curve
+    plt.plot(recall, precision, color='darkorange', label=f'positive = {label}')
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.title('Precision-Recall Curve')
+    plt.legend(loc="lower left")
+    plt.grid(True)
+    
+    return plt
+
+"""
+helper function for plotting precision recall f1 graph
+"""
+def plot_prf(true, prob, data_labels, show_labels, positive_label):
+    true_result, prob_result, label = reduce_to_two_classes(true, prob, data_labels, show_labels, positive_label)
+    # Vary the threshold for prediction
+    thresholds = np.linspace(0.0, 1.0, num=1000)
+
+    precision_scores = []
+    recall_scores = []
+    f1_scores = []
+
+    for threshold in thresholds:
+        # Convert scores to binary predictions based on threshold
+        binary_predictions = (np.array(prob_result) >= threshold).astype(int)
+
+        # Compute precision, recall, and F1 scores
+        precision = precision_score(true_result, binary_predictions, zero_division=np.nan)
+        recall = recall_score(true_result, binary_predictions)
+        f1 = f1_score(true_result, binary_predictions)
+
+        precision_scores.append(precision)
+        recall_scores.append(recall)
+        f1_scores.append(f1)
+
+    # Plot the graph
+    plt.plot(thresholds, precision_scores, label='Precision')
+    plt.plot(thresholds, recall_scores, label='Recall')
+    plt.plot(thresholds, f1_scores, label='F1')
+    plt.xlabel('Threshold')
+    plt.ylabel('Score')
+    plt.title(f'Precision, Recall, and F1 Scores (positive = {label})')
+    plt.legend()
+    plt.grid(True)
     
     return plt
 
