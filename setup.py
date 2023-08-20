@@ -22,10 +22,10 @@ extra_dev = [
 ]
 
 setup(
-    name='stat-plot',
+    name='stat-classification-plot',
     version=__version__,
 
-    url='https://github.com/Paramuths/stat-plot-package',
+    url='https://github.com/Paramuths/stat-classification-plot-package',
     author='Paramuth Samuthrsindh',
     author_email='paramuths@gmail.com',
 
