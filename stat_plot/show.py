@@ -1,5 +1,5 @@
 from typing import Literal
-from stat_result.plot import plot_confusion_matrix, plot_types
+from stat_plot.plot import plot_confusion_matrix, plot_types
 
 """
 function to show confusion matrix

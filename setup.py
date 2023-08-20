@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-from stat_result import __version__
+from stat_plot import __version__
 
 dependency = [
     'numpy>=1.22.4',
@@ -22,7 +22,7 @@ extra_dev = [
 ]
 
 setup(
-    name='stat_result',
+    name='stat-plot',
     version=__version__,
 
     url='https://github.com/Paramuths/plot_result_package',
