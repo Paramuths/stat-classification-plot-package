@@ -101,21 +101,3 @@ def save_prf(true, prob, data_labels, show_labels, positive_labels, path):
     plt.tight_layout() 
     plt.savefig(os.path.join(path, 'precision_recall_f1.png'))
     plt.close()
-
-if __name__=="__main__":
-    # true = [0, 1, 2, 1]
-    # pred = [0, 2, 2, 1]
-    # data_labels = [0, 1, 2]
-    # show_labels = ['very good', 'good', 'bad']
-    path = "./stat_result"
-    # save_confusion_matrix(true, pred, data_labels, show_labels, path)
-
-    true = [1, 2, 0, 0]
-    prob = [[0.1, 0.1, 0.8],
-            [0.2, 0.3, 0.5],
-            [0.8, 0.1, 0.1],
-            [0.5, 0.4, 0.1]]
-    data_labels = [0, 1, 2]
-    show_labels = ['very good', 'good', 'bad']
-    positive_label = 1
-    save_prf(true, prob, data_labels, show_labels, positive_label, path)

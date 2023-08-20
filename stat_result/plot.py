@@ -158,15 +158,3 @@ def plot_prf(true, prob, data_labels, show_labels, positive_label):
     plt.grid(True)
     
     return plt
-
-if __name__ == "__main__":
-
-    true = [1, 2, 0, 0]
-    prob = [[0.1, 0.1, 0.8],
-            [0.2, 0.3, 0.5],
-            [0.8, 0.1, 0.1],
-            [0.5, 0.4, 0.1]]
-    data_labels = [0, 1, 2]
-    show_labels = ['very good', 'good', 'bad']
-    positive_label = 1
-    plot_roc(true, prob, data_labels, show_labels, positive_label)
