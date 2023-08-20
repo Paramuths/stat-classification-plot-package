@@ -5,18 +5,20 @@ from stat_result import __version__
 dependency = [
     'numpy>=1.22.4',
     'matplotlib>=3.5.3',
-    'sklearn>=0.0',
+    'scikit-learn>=1.3.0',
     'einops>=0.6.1'
 ]
 
-extra_test = [
-    *dependency,
-    'pytest>=4',
-    'pytest-cov>=2',
+extra_save = [
 ]
 
+extra_show = [
+]
+    
 extra_dev = [
-    *extra_test,
+    *dependency,
+    *extra_save,
+    *extra_show
 ]
 
 setup(
@@ -36,8 +38,6 @@ setup(
 
     # dependency installed with specific keywordd
     extras_require={
-        'test': extra_test,
         'dev': extra_dev,
     },
-    
 )
