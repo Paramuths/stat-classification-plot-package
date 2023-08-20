@@ -13,3 +13,4 @@ __pycache__/
 
 # Pip
 *.egg-info
+dist/
