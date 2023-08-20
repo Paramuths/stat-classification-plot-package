@@ -25,7 +25,7 @@ setup(
     name='stat-plot',
     version=__version__,
 
-    url='https://github.com/Paramuths/plot_result_package',
+    url='https://github.com/Paramuths/stat-plot-package',
     author='Paramuth Samuthrsindh',
     author_email='paramuths@gmail.com',
 
