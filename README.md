@@ -1,4 +1,3 @@
 # statplot
 
-
-pip package to help with plotting true labels and predicted labels in ML
+pip package to help with displaying and saving outputs from classification
