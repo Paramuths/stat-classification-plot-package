@@ -1,7 +1,45 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, roc_curve, auc
 from einops import reduce
+
+"""
+helper function to reduce the output classes to two classes
+true: a list of true labels
+prob: a list of predicted probabilities for each label, corresponding to true
+data_labels: a list of data that the labels are stored in, corresponding to the order in prob
+positive_label: label to choose as positive
+
+ex. true = [1, 2, 0, 0]
+    prob = [[0.1, 0.1, 0.8],
+            [0.2, 0.3, 0.5],
+            [0.8, 0.1, 0.1],
+            [0.5, 0.4, 0.1]]
+    data_labels = [0, 1, 2]
+    show_labels = ['very good', 'good', 'bad']
+    positive_label = 1
+
+    return:
+    true_result = [1, 0, 0, 0]
+    prob_result = [0.1, 0.3, 0.1, 0.4]
+    label = 'good'
+"""
+def reduce_to_two_classes(true, prob, data_labels, show_labels, positive_label):
+    true_result = np.array(true)
+    true_result = np.where(true_result == positive_label, 1, 0)
+
+    # get the index of positive_labe in data_labels
+    id = -1
+    for index, label in enumerate(data_labels):
+        if label == positive_label:
+            id = index
+            break
+    if id == -1: raise Exception(f'{positive_label} does not exist in {data_labels}')
+
+    prob_result = np.array(prob)
+    prob_result = prob_result[:, index]
+
+    return true_result.tolist(), prob_result.tolist(), show_labels[id]
 
 """
 helper function for plotting confusion matrix
@@ -41,3 +79,39 @@ def plot_confusion_matrix(true, pred, data_labels, show_labels):
     ax.text(1, -0.8, f"accuracy = {correct_predict/num_data:.6f}", bbox=dict(facecolor='#87CEFA', edgecolor='black'), ha='center', va='center', color='black')
 
     return plt
+
+"""
+helper function for plotting ROC curve
+"""
+def plot_roc(true, prob, data_labels, show_labels, positive_label):
+    true_result, prob_result, label = reduce_to_two_classes(true, prob, data_labels, show_labels, positive_label)
+    # Compute the false positive rate, true positive rate, and thresholds
+    fpr, tpr, _ = roc_curve(true_result, prob_result, pos_label=1)
+
+    # Compute the area under the ROC curve (AUC)
+    roc_auc = auc(fpr, tpr)
+
+    # Plot the ROC curve
+    plt.figure()
+    plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'positive = {label} (AUC = {roc_auc:.6f})')
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver Operating Characteristic')
+    plt.legend(loc="lower right")
+    
+    return plt
+
+if __name__ == "__main__":
+
+    true = [1, 2, 0, 0]
+    prob = [[0.1, 0.1, 0.8],
+            [0.2, 0.3, 0.5],
+            [0.8, 0.1, 0.1],
+            [0.5, 0.4, 0.1]]
+    data_labels = [0, 1, 2]
+    show_labels = ['very good', 'good', 'bad']
+    positive_label = 1
+    plot_roc(true, prob, data_labels, show_labels, positive_label)
