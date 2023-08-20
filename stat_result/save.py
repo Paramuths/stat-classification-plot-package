@@ -1,6 +1,6 @@
 import os
 
-from plot import plot_confusion_matrix, plot_roc, plot_pr, plot_prf
+from stat_result.plot import plot_confusion_matrix, plot_roc, plot_pr, plot_prf
 
 """
 function to save confusion matrix
