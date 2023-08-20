@@ -76,7 +76,7 @@ def plot_confusion_matrix(true, pred, data_labels, show_labels):
     ax.figure.colorbar(im, ax=ax)
 
     # Adding accuracy at the upper left corner
-    ax.text(1, -0.8, f"accuracy = {correct_predict/num_data:.6f}", bbox=dict(facecolor='#87CEFA', edgecolor='black'), ha='center', va='center', color='black')
+    ax.text((cm.shape[1] - 1)/2, -0.8, f"accuracy = {correct_predict/num_data:.6f}", bbox=dict(facecolor='#87CEFA', edgecolor='black'), ha='center', va='center', color='black')
 
     return plt
 
